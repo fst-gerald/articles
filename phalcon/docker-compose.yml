@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+    # application
+    app:
+        build:
+            context: .
+            dockerfile: docker/app.dockerfile
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+    # web server
+    web:
+        build:
+            context: .
+            dockerfile: docker/web.dockerfile
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - "app"
+        ports:
+            - 80:80
